@@ -17,10 +17,12 @@
 #include <iostream>
 #include <opencv2/opencv.hpp>
 #include <opencv2/calib3d.hpp>
+#include <iostream>
+#include <fstream>
 using namespace std;
 using namespace cv;
 
 
 /* Function declarations */
-void getCoorRelation(string dirP, string dirC);
+void getCoordRelation(string dirP, string dirC, string dirPC);
 void imOpenIndicator(Mat img, string filename);

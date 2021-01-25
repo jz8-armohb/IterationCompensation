@@ -19,10 +19,13 @@
 #include "declarations.h"
 
 int main(int argc, char** argv) {
-	/* 读取图像 */
-	string dirP = argv[1];		// 标定图像目录
-	string dirC = argv[2];		// 拍摄的标定图像目录
-	getCoorRelation(dirP, dirC);
+	/****************************************************************************
+	*	Call getCoordRelation()													*
+	****************************************************************************/
+	string dirP = argv[1];		// Directory of the input calibration images
+	string dirC = argv[2];		// Directory of the captured calibration images
+	string dirPC = argv[3];		// Directory of the coordinate relation
+	getCoordRelation(dirP, dirC, dirPC);
 
 
 	waitKey(0);
