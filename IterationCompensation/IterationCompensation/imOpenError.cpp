@@ -1,12 +1,13 @@
 ﻿/********************************************************************************
 *																				*
-*   Description:			Main function										*
+*   Description:			Print indication of reading status of images 		*
 *																				*
 *	Parameters:																	*
-*		int argc:			The number of command line arguments 				*
-*		string filename:	The array of command line arguments					*
+*		Mat img:			Matrix with image data								*
+*		string filename:	Filename of the image								*
 *																				*
-*	Returns:				Exit code											*
+*	Returns:																	*
+*		Void																	*
 *																				*
 *********************************************************************************
 *																				*
@@ -18,13 +19,11 @@
 
 #include "declarations.h"
 
-int main(int argc, char** argv) {
-	/* 读取图像 */
-	string dirP = argv[1];		// 标定图像目录
-	string dirC = argv[2];		// 拍摄的标定图像目录
-	getCoorRelation(dirP, dirC);
-
-
-	waitKey(0);
-	return 0;
+void imOpenIndicator(Mat img, string filename) {
+	if (img.empty()) {
+		cerr << "Failed to load '" << filename << "'.\n";
+		exit(-1);
+	} else {
+		cout << "'" << filename << "' opened.\n";
+	}
 }
