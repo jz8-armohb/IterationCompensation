@@ -140,9 +140,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="getCheckerboardCorner.cpp" />
     <ClCompile Include="getCoordRelation.cpp" />
     <ClCompile Include="imOpenError.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="addSuffix.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="declarations.h" />

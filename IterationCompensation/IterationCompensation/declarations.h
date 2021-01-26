@@ -1,11 +1,11 @@
 ﻿/********************************************************************************
 *																				*
 *   Description:		Declarations of functions and header files				*
-*																				*																				*
+*																				*
 *********************************************************************************
 *																				*
-*   Written and developed by Songzhi ZHENG.										*
-*   Copyright © 2021 Songzhi ZHENG. All rights reserved.						*
+*   Written and developed by Lipi NIU & Songzhi ZHENG.							*
+*   Copyright © 2021 Lipi NIU & Songzhi ZHENG. All rights reserved.				*
 *																				*
 ********************************************************************************/
 
@@ -26,3 +26,6 @@ using namespace cv;
 /* Function declarations */
 void getCoordRelation(string dirP, string dirC, string dirPC);
 void imOpenIndicator(Mat img, string filename);
+vector<Point2f> getCheckerboardCorner(Mat imBoard, Size boardSize,
+	string dirImOut, string fnImOut, string dirCoordOut, string fnCoorOut);
+string addSuffix(string filenameIn, string extPrev, string suffixNew, string extNew);

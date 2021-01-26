@@ -4,16 +4,17 @@
 *						and the camera											*
 *																				*
 *	Parameters:																	*
-*		string dirP:	Directory of the input calibration images				*
-*		string dirC:	Directory of the captured calibration images			*
-*		string dirPC:	Directory of the coordinate relation					*
+*		string dirP:		Directory of the input calibration images			*
+*		string dirC:		Directory of the captured calibration images		*
+*		string dirPC:		Directory of the coordinate relation				*
 *																				*
-*	Returns:			Void													*
+*	Returns:																	*
+*		Void																	*
 *																				*
 *********************************************************************************
 *																				*
-*   Written and developed by Songzhi ZHENG.										*
-*   Copyright © 2021 Songzhi ZHENG. All rights reserved.						*
+*   Written and developed by Lipi NIU & Songzhi ZHENG.							*
+*   Copyright © 2021 Lipi NIU & Songzhi ZHENG. All rights reserved.				*
 *																				*
 ********************************************************************************/
 
@@ -63,29 +64,17 @@ void getCoordRelation(string dirP, string dirC, string dirPC) {
 	/****************************************************************************
 	*	Detect corners of checkerboard images									*
 	****************************************************************************/
-	Size boardSize, imSize;
+	vector<Point2f> cornerIn;		// Corner points of the input (original checkerboard) image
+	vector<Point2f> cornerOut;		// Corner points of the output (camera-captured checkerboard) image
+	Size boardSize;
 	boardSize.width = 8;
 	boardSize.height = 5;
-	Mat imP_board_grey;
-	vector<Point2f> cornerBuffer;
-	cvtColor(imP_board, imP_board_grey, COLOR_BGR2GRAY);
 
-	bool found = 0;
-	found = findChessboardCornersSB(imP_board, boardSize, cornerBuffer, CALIB_CB_EXHAUSTIVE | CALIB_CB_ACCURACY);
+	cornerIn = getCheckerboardCorner(imP_board, boardSize, 
+		dirP, addSuffix(fnameP_board, ".jpg", "_corner", ".jpg"), 
+		dirPC, addSuffix(fnameP_board, ".jpg", "_coord", ".csv"));
 
-	if (found) {
-		drawChessboardCorners(imP_board, boardSize, Mat(cornerBuffer), found);
-		ofstream filePCorner(dirPC + "im_board_coord.csv", ios::out);
-		if (filePCorner.is_open()) {
-			for (unsigned int i = 0; i < cornerBuffer.size(); i++) {
-				float coordX = cornerBuffer.at(i).x;
-				float coordY = cornerBuffer.at(i).y;
-				filePCorner << coordX << "," << coordY << endl;		// Save coordinates to a .csv file
-			}
-		}
-		filePCorner.close();
-	}
-	imshow("Checkerboard image with detected corners", imP_board);
-	imwrite(dirP + "im_board_corner.jpg", imP_board);
-	//waitKey(0);
+	cornerOut = getCheckerboardCorner(imC_board, boardSize,
+		dirC, addSuffix(fnameC_board, ".JPG", "_corner", ".jpg"),
+		dirPC, addSuffix(fnameC_board, ".JPG", "_coord", ".csv"));
 }

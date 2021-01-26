@@ -24,6 +24,12 @@
     <ClCompile Include="getCoordRelation.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="getCheckerboardCorner.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="addSuffix.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="declarations.h">

@@ -3,15 +3,16 @@
 *   Description:			Main function										*
 *																				*
 *	Parameters:																	*
-*		int argc:			The number of command line arguments 				*
-*		string filename:	The array of command line arguments					*
+*		int argc:				Number of command line arguments 				*
+*		string filename:		Array of command line arguments					*
 *																				*
-*	Returns:				Exit code											*
+*	Returns:																	*
+*		int:					Exit code										*
 *																				*
 *********************************************************************************
 *																				*
-*   Written and developed by Songzhi ZHENG.										*
-*   Copyright © 2021 Songzhi ZHENG. All rights reserved.						*
+*   Written and developed by Lipi NIU & Songzhi ZHENG.							*
+*   Copyright © 2021 Lipi NIU & Songzhi ZHENG. All rights reserved.				*
 *																				*
 ********************************************************************************/
 

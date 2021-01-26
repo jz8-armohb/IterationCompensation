@@ -3,11 +3,11 @@
 *   Description:			Print indication of reading status of images 		*
 *																				*
 *	Parameters:																	*
-*		Mat img:			Matrix with image data								*
-*		string filename:	Filename of the image								*
+*		Mat img:				The matrix with image data						*
+*		string filename:		The filename of the image						*
 *																				*
 *	Returns:																	*
-*		Void																	*
+		Void																	*
 *																				*
 *********************************************************************************
 *																				*
