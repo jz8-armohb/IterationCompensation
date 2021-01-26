@@ -17,10 +17,14 @@
 #include <iostream>
 #include <opencv2/opencv.hpp>
 #include <opencv2/calib3d.hpp>
+#include <Eigen/SVD>
+#include <Eigen/Core>
+#include <Eigen/Dense>
 #include <iostream>
 #include <fstream>
 using namespace std;
 using namespace cv;
+using namespace Eigen;
 
 
 /* Function declarations */
@@ -29,3 +33,6 @@ void imOpenIndicator(Mat img, string filename);
 vector<Point2f> getCheckerboardCorner(Mat imBoard, Size boardSize,
 	string dirImOut, string fnImOut, string dirCoordOut, string fnCoorOut);
 string addSuffix(string filenameIn, string extPrev, string suffixNew, string extNew);
+Matrix3f getTransMatrix(vector<Point2f> coordIn, vector<Point2f> coordOut);
+
+void testEigen();

@@ -30,6 +30,12 @@
     <ClCompile Include="addSuffix.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="testEigen.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="getTransMatrix.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="declarations.h">

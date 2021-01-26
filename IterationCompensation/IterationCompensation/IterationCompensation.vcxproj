@@ -117,6 +117,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Users\s.z.zheng\Documents\Coding Libraries\eigen-3.3.9;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -131,6 +132,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Users\s.z.zheng\Documents\Coding Libraries\eigen-3.3.9;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -142,9 +144,11 @@
   <ItemGroup>
     <ClCompile Include="getCheckerboardCorner.cpp" />
     <ClCompile Include="getCoordRelation.cpp" />
+    <ClCompile Include="getTransMatrix.cpp" />
     <ClCompile Include="imOpenError.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="addSuffix.cpp" />
+    <ClCompile Include="testEigen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="declarations.h" />

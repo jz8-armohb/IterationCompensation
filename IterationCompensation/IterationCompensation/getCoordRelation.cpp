@@ -4,12 +4,9 @@
 *						and the camera											*
 *																				*
 *	Parameters:																	*
-*		string dirP:		Directory of the input calibration images			*
-*		string dirC:		Directory of the captured calibration images		*
-*		string dirPC:		Directory of the coordinate relation				*
-*																				*
-*	Returns:																	*
-*		Void																	*
+*		dirP:			Directory of the input calibration images				*
+*		dirC:			Directory of the captured calibration images			*
+*		dirPC:			Directory of the coordinate relation					*
 *																				*
 *********************************************************************************
 *																				*
@@ -21,7 +18,13 @@
 
 #include "declarations.h"
 
-
+/// <summary>
+///     Get the coordinate relations between the projector and the camera
+/// </summary>
+/// 
+/// <param name = "dirP"> - Directory of the input calibration images</param>
+/// <param name = "dirC"> - Directory of the captured calibration images</param>
+/// <param name = "dirPC"> - Directory of the coordinate relation</param>
 void getCoordRelation(string dirP, string dirC, string dirPC) {
 	/****************************************************************************
 	*	Read images																*
@@ -31,17 +34,17 @@ void getCoordRelation(string dirP, string dirC, string dirPC) {
 	imOpenIndicator(imP_board, fnameP_board);
 	//imshow("Calibration image input (checkerboard)", imP_board);
 
-	Mat imP[8];		// 8 structured light images (projector input)
-	string fnameSuffixP_sin = "im_sin";
-	for (int i = 0; i < 8; i++) {
-		char fnameIdxP_sin[2];
-		sprintf(fnameIdxP_sin, "%d", i + 1);
-		imP[i] = imread(dirP + fnameSuffixP_sin + fnameIdxP_sin + ".jpg");
-		imOpenIndicator(imP[i], fnameSuffixP_sin + fnameIdxP_sin + ".jpg");
-		imP[i].convertTo(imP[i], CV_64FC3);		// Convert to double
-		//imshow("Calibration image input (structured light " + (string)fnameIdxP_sin + ")", imP[i]);
-		//imwrite(dirP + fnameSuffixP_sin + fnameIdxP_sin + " (CV_64FC3).jpg", imP[i]);
-	}
+	//Mat imP[8];		// 8 structured light images (projector input)
+	//string fnameSuffixP_sin = "im_sin";
+	//for (int i = 0; i < 8; i++) {
+	//	char fnameIdxP_sin[2];
+	//	sprintf(fnameIdxP_sin, "%d", i + 1);
+	//	imP[i] = imread(dirP + fnameSuffixP_sin + fnameIdxP_sin + ".jpg");
+	//	imOpenIndicator(imP[i], fnameSuffixP_sin + fnameIdxP_sin + ".jpg");
+	//	imP[i].convertTo(imP[i], CV_64FC3);		// Convert to double
+	//	//imshow("Calibration image input (structured light " + (string)fnameIdxP_sin + ")", imP[i]);
+	//	//imwrite(dirP + fnameSuffixP_sin + fnameIdxP_sin + " (CV_64FC3).jpg", imP[i]);
+	//}
 
 
 	string fnameC_board = "IMG_0001.JPG";
@@ -49,16 +52,16 @@ void getCoordRelation(string dirP, string dirC, string dirPC) {
 	imOpenIndicator(imC_board, fnameC_board);
 	//imshow("Calibration image captured (checkerboard)", imC_board);
 
-	Mat imC[8];		// 8 structured light images captured by camera
-	string fnameSuffixC_sin = "IMG_";
-	for (int i = 0; i < 8; i++) {
-		char fnameIdxC_sin[5];
-		sprintf(fnameIdxC_sin, "%04d", i + 1);		// %04d: pad the width with leading zeros to keep the integer 4 digits wide
-		imC[i] = imread(dirC + fnameSuffixC_sin + fnameIdxC_sin + ".JPG");
-		imOpenIndicator(imC[i], fnameSuffixC_sin + fnameIdxC_sin + ".JPG");
-		imC[i].convertTo(imC[i], CV_64FC3);		// Convert to double
-		//imshow("Calibration image captured (structured light " + (string)fnameIdxC_sin + ")", imP[i]);
-	}
+	//Mat imC[8];		// 8 structured light images captured by camera
+	//string fnameSuffixC_sin = "IMG_";
+	//for (int i = 0; i < 8; i++) {
+	//	char fnameIdxC_sin[5];
+	//	sprintf(fnameIdxC_sin, "%04d", i + 1);		// %04d: pad the width with leading zeros to keep the integer 4 digits wide
+	//	imC[i] = imread(dirC + fnameSuffixC_sin + fnameIdxC_sin + ".JPG");
+	//	imOpenIndicator(imC[i], fnameSuffixC_sin + fnameIdxC_sin + ".JPG");
+	//	imC[i].convertTo(imC[i], CV_64FC3);		// Convert to double
+	//	//imshow("Calibration image captured (structured light " + (string)fnameIdxC_sin + ")", imP[i]);
+	//}
 
 
 	/****************************************************************************
@@ -77,4 +80,15 @@ void getCoordRelation(string dirP, string dirC, string dirPC) {
 	cornerOut = getCheckerboardCorner(imC_board, boardSize,
 		dirC, addSuffix(fnameC_board, ".JPG", "_corner", ".jpg"),
 		dirPC, addSuffix(fnameC_board, ".JPG", "_coord", ".csv"));
+
+	cout << cornerIn.size() << endl;
+	cout << cornerIn[0].x << ", "<< cornerIn[0].x << endl;
+	cout << cornerIn[0] << endl;
+
+
+	/****************************************************************************
+	*	Compute the transformation matrix of the projection model				*
+	****************************************************************************/
+	Matrix3f matTrans;
+	matTrans = getTransMatrix(cornerIn, cornerOut);
 }
