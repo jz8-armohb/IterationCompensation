@@ -26,8 +26,8 @@ int main(int argc, char** argv) {
 	string dirP = argv[1];		// Directory of the input calibration images
 	string dirC = argv[2];		// Directory of the captured calibration images
 	string dirPC = argv[3];		// Directory of the coordinate relation
-	getCoordRelation(dirP, dirC, dirPC);
-	//testEigen();
+	//getCoordRelation(dirP, dirC, dirPC);
+	testEigen();
 	
 
 	waitKey(0);

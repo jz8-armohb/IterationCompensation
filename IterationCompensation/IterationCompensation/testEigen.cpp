@@ -2,28 +2,49 @@
 
 
 void testEigen() {
-    MatrixXd A(3, 2);
-    A << 1, 2,
-        3, 4,
-        5, 6;
-    cout << "Here is the matrix A:\n" << A << endl;
-    VectorXd b(3);
-    b << 5,
-        11,
-        17;
-    cout << "Here is the right hand side b:\n" << b << endl;
 
-    //A.block(1, 0, 1, A.cols()) << 7, 8;
-    //cout << "Here is the matrix A:\n" << A << endl;
+    MatrixXd MM(80, 8);     // Data from MALTLAB
+    FILE* fpread;
+    fpread = fopen(".\\test_data\\MM.txt", "r");
+    if (fpread == NULL) {
+        printf("file is error.");
+        exit(-1);
+    } else {
+        cout << "Successfully opened file.\n";
+    }
+    for (int i = 0; i < 80; i++) {
+        for (int j = 0; j < 8; j++) {
+            fscanf(fpread, "%lf", &MM(i, j));
+        }
+    }
+    fclose(fpread);
+    //cout << "MM = \n" << MM << endl;
+
+    MatrixXd b(80, 1);      // Data from MALTLAB
+    fpread = fopen(".\\test_data\\b.txt", "r");
+    if (fpread == NULL) {
+        printf("file is error.");
+        exit(-1);
+    } else {
+        cout << "Successfully opened file.\n";
+    }
+    for (int i = 0; i < 80; i++) {
+        for (int j = 0; j < 1; j++) {
+            fscanf(fpread, "%lf", &b(i, j));
+        }
+    }
+    fclose(fpread);
+    //cout << "b = \n" << b << endl;
+
 
     // SVD decomposition
     cout << "The least-squares solution is:\n"
-        << A.bdcSvd(ComputeThinU | ComputeThinV).solve(b) << endl;
+        << MM.bdcSvd(ComputeThinU | ComputeThinV).solve(b) << endl;
 
     // QR decomposition
     cout << "The solution using the QR decomposition is:\n"
-        << A.colPivHouseholderQr().solve(b) << endl;
+        << MM.colPivHouseholderQr().solve(b) << endl;
 
     // normal equations
-    cout << "The solution using normal equations is:\n" << (A.transpose() * A).ldlt().solve(A.transpose() * b) << endl;
+    cout << "The solution using normal equations is:\n" << (MM.transpose() * MM).ldlt().solve(MM.transpose() * b) << endl;
 }

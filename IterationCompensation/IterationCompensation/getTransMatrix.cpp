@@ -20,15 +20,7 @@
 
 #include "declarations.h"
 
-/// <summary>
-///     Compute the transformation matrix of the projection model
-/// </summary>
-/// 
-/// <param name = "coordIn"> - Original coordinates</param>
-/// <param name = "coordOut"> - Coordinates after transformation</param>
-/// 
-/// <returns>Transformation matrix</returns>
-Matrix3f getTransMatrix(vector<Point2f> coordIn, vector<Point2f> coordOut) {
+Matrix3f getTransMatrix(vector<Point2f> coordIn, vector<Point2f> coordOut, string algorithm) {
 	int numCorner = coordIn.size();
 	double xIn;
 	double yIn;
@@ -38,6 +30,7 @@ Matrix3f getTransMatrix(vector<Point2f> coordIn, vector<Point2f> coordOut) {
 	MatrixXf b(2 * numCorner, 1);
 	VectorXf a(8);
 	Matrix3f matTrans;
+
 
 	for (int i = 0; i < numCorner; i++) {
 		xIn = coordIn[i].x;
@@ -52,8 +45,16 @@ Matrix3f getTransMatrix(vector<Point2f> coordIn, vector<Point2f> coordOut) {
 		b(2 * i + 1, 0) = yOut;
 	}
 
-	a = MM.colPivHouseholderQr().solve(b);
+
+	if (algorithm == "SVD") {
+		a = MM.bdcSvd(ComputeThinU | ComputeThinV).solve(b);
+	} else if (algorithm == "QR") {
+		a = MM.colPivHouseholderQr().solve(b);
+	} else if (algorithm == "Normal") {
+		a = (MM.transpose() * MM).ldlt().solve(MM.transpose() * b);
+	}
 	//cout << "a = \n" << a << endl;
+
 
 	matTrans(0, 0) = a(0);
 	matTrans(0, 1) = a(1);

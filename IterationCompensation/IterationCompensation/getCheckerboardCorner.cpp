@@ -23,18 +23,6 @@
 
 #include "declarations.h"
 
-/// <summary>
-///     Detect the corners of a checkerboard image
-/// </summary>
-/// 
-/// <param name = "imBoard"> - Matrix of the checkerboard image</param>
-/// <param name = "boardSize"> - Corner points along x and y axis</param>
-/// <param name = "dirImOut"> - Saving directory of the corner-marked image</param>
-/// <param name = "fnImOut"> - Filename of the corner-marked image</param>
-/// <param name = "dirCoorOut"> - Saving directory of the file of cordinates</param>
-/// <param name = "fnCoorOut"> - Filename of the CSV file of cordinates</param>
-/// 
-/// <returns>Buffer of corner points</returns>
 vector<Point2f> getCheckerboardCorner(Mat imBoard, Size boardSize, 
 	string dirImOut, string fnImOut, string dirCoordOut, string fnCoorOut) {
 

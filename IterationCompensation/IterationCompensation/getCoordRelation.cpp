@@ -18,13 +18,6 @@
 
 #include "declarations.h"
 
-/// <summary>
-///     Get the coordinate relations between the projector and the camera
-/// </summary>
-/// 
-/// <param name = "dirP"> - Directory of the input calibration images</param>
-/// <param name = "dirC"> - Directory of the captured calibration images</param>
-/// <param name = "dirPC"> - Directory of the coordinate relation</param>
 void getCoordRelation(string dirP, string dirC, string dirPC) {
 	/****************************************************************************
 	*	Read images																*
@@ -90,5 +83,5 @@ void getCoordRelation(string dirP, string dirC, string dirPC) {
 	*	Compute the transformation matrix of the projection model				*
 	****************************************************************************/
 	Matrix3f matTrans;
-	matTrans = getTransMatrix(cornerIn, cornerOut);
+	matTrans = getTransMatrix(cornerIn, cornerOut, "SVD");
 }
