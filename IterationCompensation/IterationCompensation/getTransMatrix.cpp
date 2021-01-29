@@ -6,6 +6,8 @@
 *	Parameters:																	*
 *		coordIn:		Original coordinates									*
 *		coordOut:		Coordinates after transformation						*
+*		algorithm:		Supports the following 3 algorithms -					*
+*						"SVD", "QR" and "Normal" (normal equation)				*
 *																				*
 *	Returns:																	*
 *		matTrans:		Transformation matrix									*

@@ -31,13 +31,13 @@ using namespace Eigen;
 
 
 /// <summary>
-///     Get the coordinate relations between the projector and the camera
+///     Get the correlation between the coordinates of the projector and the camera
 /// </summary>
 /// 
 /// <param name = "dirP"> - Directory of the input calibration images</param>
 /// <param name = "dirC"> - Directory of the captured calibration images</param>
-/// <param name = "dirPC"> - Directory of the coordinate relation</param>
-void getCoordRelation(string dirP, string dirC, string dirPC);
+/// <param name = "dirPC"> - Directory of the coordinate correlation</param>
+void getCoordCorrelation(string dirP, string dirC, string dirPC);
 
 
 /// <summary>
@@ -88,4 +88,21 @@ string addSuffix(string filenameIn, string extPrev, string suffixNew, string ext
 /// <returns>Transformation matrix</returns>
 Matrix3f getTransMatrix(vector<Point2f> coordIn, vector<Point2f> coordOut, string algorithm);
 
+
+/// <summary>
+///     Compute the radian of projector and camera coordinates
+/// </summary>
+/// 
+/// <param name = "imP"> - Matrix array of the 8 original structured light images</param>
+/// <param name = "imC"> - Matrix array of the 8 camera-captured structured light images</param>
+/// <param name = "corP"> - Radian of the projector coordinates</param>
+/// <param name = "corC"> - Radian of the camera-captured coordinates</param>
+void structuredLight(Mat imP[], Mat imC[], double corP[][1440][2], double corC[][1920][2]);
+
+void getAccurateCorrelation(Mat imP[], Mat imC[], Matrix3f Mu, double corPC[900][1440][2],
+	string dirPC, string filenameCorPC);
+
+
+
 void testEigen();
+void testOpenCV();

@@ -21,9 +21,6 @@
     <ClCompile Include="imOpenError.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="getCoordRelation.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="getCheckerboardCorner.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -34,6 +31,18 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="getTransMatrix.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="testOpenCV.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="structuredLight.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="getCoordCorrelation.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="getAccurateCorrelation.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

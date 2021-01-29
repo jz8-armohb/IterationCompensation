@@ -21,13 +21,20 @@
 
 int main(int argc, char** argv) {
 	/****************************************************************************
-	*	Call getCoordRelation()													*
+	*	Call getCoordCorrelation()												*
 	****************************************************************************/
 	string dirP = argv[1];		// Directory of the input calibration images
 	string dirC = argv[2];		// Directory of the captured calibration images
-	string dirPC = argv[3];		// Directory of the coordinate relation
-	//getCoordRelation(dirP, dirC, dirPC);
-	testEigen();
+	string dirPC = argv[3];		// Directory of the coordinate correlation
+	getCoordCorrelation(dirP, dirC, dirPC);
+
+
+
+	/****************************************************************************
+	*	Test																	*
+	****************************************************************************/
+	//testEigen();
+	//testOpenCV();
 	
 
 	waitKey(0);
