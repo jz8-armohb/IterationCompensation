@@ -90,18 +90,17 @@ Matrix3f getTransMatrix(vector<Point2f> coordIn, vector<Point2f> coordOut, strin
 
 
 /// <summary>
-///     Compute the radian of projector and camera coordinates
+///     Get a more accurate projection model based on structured light
 /// </summary>
 /// 
 /// <param name = "imP"> - Matrix array of the 8 original structured light images</param>
 /// <param name = "imC"> - Matrix array of the 8 camera-captured structured light images</param>
-/// <param name = "corP"> - Radian of the projector coordinates</param>
-/// <param name = "corC"> - Radian of the camera-captured coordinates</param>
-void structuredLight(Mat imP[], Mat imC[], double corP[][1440][2], double corC[][1920][2]);
-
+/// <param name = "Mu"> - Transformation matrix of the projection model </param>
+/// <param name = "corPC"> - Pre-defined array for correlation data</param>
+/// <param name = "dirPC"> - Directory of the coordinate correlation </param>
+/// <param name = "filenameCorPC"> - Filename of the coordinate correlation of the projector-camera system</param>
 void getAccurateCorrelation(Mat imP[], Mat imC[], Matrix3f Mu, double corPC[900][1440][2],
 	string dirPC, string filenameCorPC);
-
 
 
 void testEigen();
