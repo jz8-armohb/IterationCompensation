@@ -148,10 +148,9 @@
     <ClCompile Include="getCheckerboardCorner.cpp" />
     <ClCompile Include="getCoordCorrelation.cpp" />
     <ClCompile Include="getTransMatrix.cpp" />
-    <ClCompile Include="imOpenError.cpp" />
+    <ClCompile Include="fileIO.cpp" />
+    <ClCompile Include="iterCompen.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="addSuffix.cpp" />
-    <ClCompile Include="structuredLight.cpp" />
     <ClCompile Include="testEigen.cpp" />
     <ClCompile Include="testOpenCV.cpp" />
   </ItemGroup>

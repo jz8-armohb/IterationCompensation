@@ -18,13 +18,7 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="imOpenError.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="getCheckerboardCorner.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="addSuffix.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="testEigen.cpp">
@@ -36,13 +30,16 @@
     <ClCompile Include="testOpenCV.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="structuredLight.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="getCoordCorrelation.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="getAccurateCorrelation.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="iterCompen.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="fileIO.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

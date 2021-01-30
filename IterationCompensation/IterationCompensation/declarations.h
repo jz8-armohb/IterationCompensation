@@ -37,7 +37,8 @@ using namespace Eigen;
 /// <param name = "dirP"> - Directory of the input calibration images</param>
 /// <param name = "dirC"> - Directory of the captured calibration images</param>
 /// <param name = "dirPC"> - Directory of the coordinate correlation</param>
-void getCoordCorrelation(string dirP, string dirC, string dirPC);
+/// <param name = "corPC"> - Pre-defined array for accurate correlation</param>
+void getCoordCorrelation(string dirP, string dirC, string dirPC, double corPC[900][1440][2]);
 
 
 /// <summary>
@@ -47,6 +48,7 @@ void getCoordCorrelation(string dirP, string dirC, string dirPC);
 /// <param name = "filename"> - The filename of the imag</param>
 void imOpenIndicator(Mat img, string filename);
 
+float string2float(string str);
 
 /// <summary>
 ///     Detect the corners of a checkerboard image
@@ -101,6 +103,15 @@ Matrix3f getTransMatrix(vector<Point2f> coordIn, vector<Point2f> coordOut, strin
 /// <param name = "filenameCorPC"> - Filename of the coordinate correlation of the projector-camera system</param>
 void getAccurateCorrelation(Mat imP[], Mat imC[], Matrix3f Mu, double corPC[900][1440][2],
 	string dirPC, string filenameCorPC);
+
+
+//void iterComepn(string dirP, string dirC, string dirPC,
+//	string filenameCam, string filenamePrj,
+//	string filenameCorPC, int numCompen, double lambda);
+void iterComepn(string dirP, string dirC, string dirPC,
+	string filenameCam, string filenamePrj,
+	string filenameCorPC, int numCompen, double lambda,
+	double corPC[900][1440][2]);
 
 
 void testEigen();

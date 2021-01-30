@@ -7,6 +7,7 @@
 *		dirP:			Directory of the input calibration images				*
 *		dirC:			Directory of the captured calibration images			*
 *		dirPC:			Directory of the coordinate correlation					*
+*		corPC:			Pre-defined array for accurate correlation				*
 *																				*
 *********************************************************************************
 *																				*
@@ -18,10 +19,11 @@
 
 #include "declarations.h"
 
-void getCoordCorrelation(string dirP, string dirC, string dirPC) {
+void getCoordCorrelation(string dirP, string dirC, string dirPC, double corPC[900][1440][2]) {
 	/****************************************************************************
 	*	Read images																*
 	****************************************************************************/
+	cout << "\nReading calibration images...\n";
 	string fnameP_board = "im_board.jpg";
 	Mat imP_board = imread(dirP + fnameP_board);		// Checkerboard image (projector input)
 	imOpenIndicator(imP_board, fnameP_board);
@@ -67,10 +69,12 @@ void getCoordCorrelation(string dirP, string dirC, string dirPC) {
 	boardSize.width = 8;
 	boardSize.height = 5;
 
+	cout << "\nDetecting corners of the projector-input checkerboard image...\n";
 	cornerIn = getCheckerboardCorner(imP_board, boardSize, 
 		dirP, addSuffix(fnameP_board, ".jpg", "_corner", ".jpg"), 
 		dirPC, addSuffix(fnameP_board, ".jpg", "_coord", ".csv"));
 
+	cout << "\nDetecting corners of the camera-captured checkerboard image...\n";
 	cornerOut = getCheckerboardCorner(imC_board, boardSize,
 		dirC, addSuffix(fnameC_board, ".JPG", "_corner", ".jpg"),
 		dirPC, addSuffix(fnameC_board, ".JPG", "_coord", ".csv"));
@@ -79,6 +83,7 @@ void getCoordCorrelation(string dirP, string dirC, string dirPC) {
 	/****************************************************************************
 	*	Compute the transformation matrix of the projection model				*
 	****************************************************************************/
+	cout << "\nComputing the transformation matrix of the projection model...\n";
 	Matrix3f matTrans;
 	matTrans = getTransMatrix(cornerIn, cornerOut, "SVD");
 
@@ -86,6 +91,7 @@ void getCoordCorrelation(string dirP, string dirC, string dirPC) {
 	/****************************************************************************
 	*	Compute a more accurate model											*
 	****************************************************************************/
-	double corPC[900][1440][2];
-	getAccurateCorrelation(imP, imC, matTrans, corPC, dirP, "prj_cam_correlation.csv");
+	cout << "\nComputing a more accurate model...\n";
+	//double corPC[900][1440][2];
+	getAccurateCorrelation(imP, imC, matTrans, corPC, dirPC, "prj_cam_correlation.csv");
 }

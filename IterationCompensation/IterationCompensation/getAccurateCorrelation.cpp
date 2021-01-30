@@ -25,9 +25,13 @@
 
 void getAccurateCorrelation(Mat imP[], Mat imC[], Matrix3f Mu, double corPC[900][1440][2],
 	string dirPC, string filenameCorPC) {
-	double corP[900][1440][2], corC[1920][1920][2];
+	double corP[900][1440][2], corC[1280][1920][2];
 	//double corPC[900][1440][2];
+	memset(corP, 0, 900 * 1440 * 2);
+	memset(corC, 0, 1280 * 1920 * 2);
+	memset(corPC, 0, 900 * 1440 * 2);
 
+	/* Compute corP */
 	for (int i = 300; i < 900; i++) {
 		for (int j = 480; j < 1440; j++) {
 			//double imP0_ij = imP[0].ptr<uchar>(i)[j];
@@ -47,15 +51,19 @@ void getAccurateCorrelation(Mat imP[], Mat imC[], Matrix3f Mu, double corPC[900]
 			double imP6_ij = (double)imP[6].at<uchar>(i, j);
 			double imP7_ij = (double)imP[7].at<uchar>(i, j);
 
-
-			double iTemp = atan((imP3_ij - imP1_ij) / (imP0_ij - imP2_ij));
-			double jTemp = atan((imP7_ij - imP5_ij) / (imP4_ij - imP6_ij));
-
-			corP[i][j][0] = iTemp;
-			corP[i][j][1] = jTemp;
+			corP[i][j][0] = atan((imP3_ij - imP1_ij) / (imP0_ij - imP2_ij));
+			corP[i][j][1] = atan((imP7_ij - imP5_ij) / (imP4_ij - imP6_ij));
 		}
 	}
 
+	for (int i = 302; i < 303; i++) {
+		for (int j = 844; j < 847; j++) {
+			printf("corP[%d][%d][0] = %d,\tcorP[%d][%d][1] = %d\n", i, j, corP[i][j][0], i, j, corP[i][j][1]);
+		}
+	}
+
+
+	/* Compute corC */
 	for (int i = 0; i < 1280; i++) {
 		for (int j = 0; j < 1920; j++) {
 			//double imC0_ij = imC[0].ptr<uchar>(i)[j];
@@ -75,21 +83,19 @@ void getAccurateCorrelation(Mat imP[], Mat imC[], Matrix3f Mu, double corPC[900]
 			double imC6_ij = (double)imC[6].at<uchar>(i, j);
 			double imC7_ij = (double)imC[7].at<uchar>(i, j);
 
-
-			double iTemp = atan((imC3_ij - imC1_ij) / (imC0_ij - imC2_ij));
-			double jTemp = atan((imC7_ij - imC5_ij) / (imC4_ij - imC6_ij));
-
-			corC[i][j][0] = iTemp;
-			corC[i][j][1] = jTemp;
+			corC[i][j][0] = atan((imC3_ij - imC1_ij) / (imC0_ij - imC2_ij));
+			corC[i][j][1] = atan((imC7_ij - imC5_ij) / (imC4_ij - imC6_ij));
 		}
 	}
 
-	//for (int i = 0; i < 1; i++) {
-	//	for (int j = 0; j < 1920; j++) {
-	//		cout << corC[i][j][0] << "\t" << corC[i][j][1] << endl;
-	//	}
-	//}
+	for (int i = 302; i < 303; i++) {
+		for (int j = 844; j < 847; j++) {
+			printf("corC[%d][%d][0] = %d,\tcorC[%d][%d][1] = %d\n", i, j, corC[i][j][0], i, j, corC[i][j][1]);
+		}
+	}
 
+
+	/* Compute corPC */
 	for (int i = 300; i < 900; i++) {
 		for (int j = 480; j < 1440; j++) {
 			MatrixXf axis(3, 1);
@@ -140,20 +146,48 @@ void getAccurateCorrelation(Mat imP[], Mat imC[], Matrix3f Mu, double corPC[900]
 			double ttMin = tt.minCoeff(&x, &y);
 			ii = ii + x - 5;
 			jj = jj + y - 5;
-			ii = ii - (t1(x, y) - radPrj[0]) / 0.5236;
-			jj = jj - (t2(x, y) - radPrj[1]) / 0.5236;
+			corPC[i][j][0] = ii - (t1(x, y) - radPrj[0]) / 0.5236;
+			corPC[i][j][1] = jj - (t2(x, y) - radPrj[1]) / 0.5236;
 
-			corPC[i - 1][j - 1][0] = ii;
-			corPC[i - 1][j - 1][1] = jj;
+
+			if ( corPC[i][j][0] >= 10000 || corPC[i][j][0] <= -10000 || 
+				corPC[i][j][1] >= 10000 || corPC[i][j][1] <= -10000) {
+				printf("-----------------------------------------------\n");
+				printf("imP[0].at<uchar>(%d, %d) = %d,\timP[0].at<uchar>(%d, %d) = %lf\n",
+					i, j, imP[0].at<uchar>(i, j),
+					i, j, (double)imP[0].at<uchar>(i, j));
+				printf("corP[%d][%d][0] = %lf,\tcorP[%d][%d][1] = %lf\n",
+					i, j, corP[i][j][0],
+					i, j, corP[i][j][1]);
+				printf("imC[0].at<uchar>(%d, %d) = %d,\timC[0].at<uchar>(%d, %d) = %lf\n",
+					i, j, imC[0].at<uchar>(i, j),
+					i, j, (double)imC[0].at<uchar>(i, j));
+				printf("corC[%d][%d][0] = %lf,\tcorC[%d][%d][1] = %lf\n",
+					i, j, corC[i][j][0],
+					i, j, corC[i][j][1]);
+				printf("corPC[%d][%d][0] = %lf,\tcorPC[%d][%d][1] = %lf\n",
+					i, j, corPC[i][j][0],
+					i, j, corPC[i][j][1]);
+			}
+
+
+
+		}
+	}
+
+	for (int i = 302; i < 303; i++) {
+		for (int j = 844; j < 847; j++) {
+			printf("corPC[%d][%d][0] = %d,\tcorPC[%d][%d][1] = %d\n", i, j, corPC[i][j][0], i, j, corPC[i][j][1]);
 		}
 	}
 
 
+	/* Write corPC into a CSV file */
 	ofstream fileCorPC(dirPC + filenameCorPC, ios::out);
 	if (fileCorPC.is_open()) {
 		for (int i = 0; i < 900; i++) {
 			for (int j = 0; j < 1440; j++) {
-				fileCorPC << corPC[i][j][0] << "," << corPC[i][j][1] << ",";
+				fileCorPC << (double)corPC[i][j][0] << "," << (double)corPC[i][j][1] << ",";
 			}
 			fileCorPC << endl;
 		}

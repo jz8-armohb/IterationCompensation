@@ -26,7 +26,11 @@ int main(int argc, char** argv) {
 	string dirP = argv[1];		// Directory of the input calibration images
 	string dirC = argv[2];		// Directory of the captured calibration images
 	string dirPC = argv[3];		// Directory of the coordinate correlation
-	getCoordCorrelation(dirP, dirC, dirPC);
+	double corPC[900][1440][2];
+	memset(corPC, 0, 900 * 1440 * 2);
+
+	getCoordCorrelation(dirP, dirC, dirPC, corPC);
+	iterComepn(dirP, dirC, dirPC, "IMG_0001.JPG", "im_board.jpg", "prj_cam_correlation.csv", 1, 0.6, corPC);
 
 
 
@@ -35,7 +39,7 @@ int main(int argc, char** argv) {
 	****************************************************************************/
 	//testEigen();
 	//testOpenCV();
-	
+
 
 	waitKey(0);
 	return 0;

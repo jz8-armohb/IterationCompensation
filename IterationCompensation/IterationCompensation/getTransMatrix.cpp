@@ -67,7 +67,7 @@ Matrix3f getTransMatrix(vector<Point2f> coordIn, vector<Point2f> coordOut, strin
 	matTrans(2, 0) = a(6);
 	matTrans(2, 1) = a(7);
 	matTrans(2, 2) = 1;
-	//cout << "matTrans =\n" << matTrans << endl;
+	cout << "matTrans =\n" << matTrans << endl;
 
 	return matTrans;
 }

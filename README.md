@@ -8,4 +8,4 @@
 - 项目 ＞ 调试属性 ＞ 配置属性 ＞ 调试 ＞ 命令参数：
   - 标定图像目录：`.\calibration_img_prj\`
   - 拍摄的标定图像目录：`.\calibration_img_cam\`
-  - 坐标对应关系目录：`.\coord_relation\`
+  - 坐标对应关系目录：`.\coord_correlation\`
