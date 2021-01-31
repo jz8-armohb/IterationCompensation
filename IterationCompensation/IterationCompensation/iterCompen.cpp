@@ -9,6 +9,17 @@ void iterComepn(string dirP, string dirC, string dirPC,
 	string filenameCorPC, int numCompen, double lambda,
 	double corPC[900][1440][2]) {
 
+	/* Debug: check corPC */
+	for (int i = 300; i < 900; i++) {
+		for (int j = 480; j < 1440; j++) {
+			if (abs(corPC[i][j][0]) >= 1.5e3 || abs(corPC[i][j][1]) >= 1.5e3) {
+				printf("corPC[%d][%d][0] = %lf,\tcorPC[%d][%d][1] = %lf\n",
+					i, j, corPC[i][j][0],
+					i, j, corPC[i][j][1]);
+			}
+		}
+	}
+
 	
 	Mat imPrj = imread(dirP + filenamePrj);
 	Mat imCam = imread(dirC + filenameCam);
@@ -88,26 +99,26 @@ void iterComepn(string dirP, string dirC, string dirPC,
 				int jj = int(corPC[i][j][1]);
 				double u = corPC[i][j][0] - ii;
 				double v = corPC[i][j][1] - jj;
-				printf("-----------------------------------------------\n");
-				printf("i = %d, j = %d\n", i, j);
-				printf("corPC[%d][%d][0] = %lf,\tcorPC[%d][%d][1] = %lf\n", 
-					i, j, corPC[i][j][0], 
-					i, j, corPC[i][j][1]);
-				printf("ii= %d,\tjj = %d,\tu = %lf,\tv = %lf\n", ii, jj, u, v);
+				//printf("-----------------------------------------------\n");
+				//printf("i = %d, j = %d\n", i, j);
+				//printf("corPC[%d][%d][0] = %lf,\tcorPC[%d][%d][1] = %lf\n", 
+				//	i, j, corPC[i][j][0], 
+				//	i, j, corPC[i][j][1]);
+				//printf("ii= %d,\tjj = %d,\tu = %lf,\tv = %lf\n", ii, jj, u, v);
 
 				for (int ch = 0; ch < numChannel; ch++) {
 					uchar i1 = imCam.at<Vec3b>(ii, jj)[ch];
 					uchar i2 = imCam.at<Vec3b>(ii, jj + 1)[ch];
 					uchar i3 = imCam.at<Vec3b>(ii + 1, jj)[ch];
 					uchar i4 = imCam.at<Vec3b>(ii + 1, jj + 1)[ch];
-					printf("i1= %d,\ti2 = %d,\ti3 = %d,\ti4 = %d\n", (int)i1, (int)i2, (int)i3, (int)i4);
+					//printf("i1= %d,\ti2 = %d,\ti3 = %d,\ti4 = %d\n", (int)i1, (int)i2, (int)i3, (int)i4);
 
 					imCamTrans.at<Vec3b>(i, j)[ch] = uchar(
 						(1 - u) * (1 - v) * i1
 						+ (1 - u) * v * i2
 						+ u * (1 - v) * i3
 						+ u * v * i4);
-					printf("imCamTrans.at<Vec3b>(%d, %d)[%d] = %d\n", i, j, ch, (int)imCamTrans.at<Vec3b>(i, j)[ch]);
+					//printf("imCamTrans.at<Vec3b>(%d, %d)[%d] = %d\n", i, j, ch, (int)imCamTrans.at<Vec3b>(i, j)[ch]);
 
 					//imCamTrans.at<Vec3b>(i, j)[ch] = uchar(
 					//	(1 - u) * (1 - v) * imCam.at<Vec3b>(ii, jj)[ch]

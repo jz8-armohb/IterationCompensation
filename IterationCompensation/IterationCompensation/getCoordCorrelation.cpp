@@ -54,7 +54,7 @@ void getCoordCorrelation(string dirP, string dirC, string dirPC, double corPC[90
 		sprintf(fnameIdxC_sin, "%04d", i + 1);		// %04d: pad the width with leading zeros to keep the integer 4 digits wide
 		imC[i] = imread(dirC + fnameSuffixC_sin + fnameIdxC_sin + ".JPG");
 		imOpenIndicator(imC[i], fnameSuffixC_sin + fnameIdxC_sin + ".JPG");
-		cvtColor(imC[i], imC[i], COLOR_BGR2GRAY);
+		//cvtColor(imC[i], imC[i], COLOR_BGR2GRAY);
 		//imC[i].convertTo(imC[i], CV_64FC1);		// Convert to double
 		//imshow("Calibration image captured (structured light " + (string)fnameIdxC_sin + ")", imP[i]);
 	}
