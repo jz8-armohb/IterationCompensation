@@ -51,12 +51,18 @@ void getCoordCorrelation(string dirP, string dirC, string dirPC, double corPC[90
 	string fnameSuffixC_sin = "IMG_";
 	for (int i = 0; i < 8; i++) {
 		char fnameIdxC_sin[5];
-		sprintf(fnameIdxC_sin, "%04d", i + 1);		// %04d: pad the width with leading zeros to keep the integer 4 digits wide
+		sprintf(fnameIdxC_sin, "%04d", i + 2);		// %04d: pad the width with leading zeros to keep the integer 4 digits wide
 		imC[i] = imread(dirC + fnameSuffixC_sin + fnameIdxC_sin + ".JPG");
 		imOpenIndicator(imC[i], fnameSuffixC_sin + fnameIdxC_sin + ".JPG");
-		//cvtColor(imC[i], imC[i], COLOR_BGR2GRAY);
+		cvtColor(imC[i], imC[i], COLOR_BGR2GRAY);
 		//imC[i].convertTo(imC[i], CV_64FC1);		// Convert to double
 		//imshow("Calibration image captured (structured light " + (string)fnameIdxC_sin + ")", imP[i]);
+
+		//cout << "imC[" << i << "]:\t";
+		//for (int j = 0; j < 10; j++) {
+		//	cout << (int)imC[i].at<uchar>(0, j) << "\t";
+		//}
+		//cout << endl;
 	}
 
 

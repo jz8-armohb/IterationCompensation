@@ -13,6 +13,7 @@
 #pragma once
 
 #define _CRT_SECURE_NO_WARNINGS
+#define PI 3.1416
 
 #include <iostream>
 #include <opencv2/opencv.hpp>
